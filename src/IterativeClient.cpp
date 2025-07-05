@@ -1,4 +1,4 @@
-#include "ItervativeClient.h"
+#include "IterativeClient.h"
 
 #include <unistd.h>
 #include <arpa/inet.h>
@@ -12,12 +12,13 @@ void IterativeClient::udp(const char* ip_addr, uint16_t port) {
     sockaddr_in servaddr;
     socklen_t servaddr_len = sizeof(servaddr);
     servaddr.sin_family = PF_INET;
-    servaddr.sin_port = htons(1312);
-    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    servaddr.sin_port = htons(port);
+    servaddr.sin_addr.s_addr = inet_addr(ip_addr);
     
     char request[1024] = {"Hello, I'm UDP Client."};
     char response[1024];
 
+    // 发送10次udp消息
     for (int i = 0; i < 10; ++i) {
         sendto(sd, request, strlen(request), 0, (sockaddr*)&servaddr, servaddr_len);
         
@@ -37,14 +38,14 @@ void IterativeClient::tcp(const char* ip_addr, uint16_t port) {
         // 连接服务器
         struct sockaddr_in servaddr;
         servaddr.sin_family = PF_INET;
-        servaddr.sin_port = ntohs(1314);
-        servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+        servaddr.sin_port = ntohs(port);
+        servaddr.sin_addr.s_addr = inet_addr(ip_addr);
         if (connect(sd, (struct sockaddr*)&servaddr, sizeof(servaddr)) != 0) {
             std::cout << "Connect failed!\n";
         }
         
         // 发送请求包
-        char request[] = {"Hello, I'm Client."};
+        char request[] = {"Hello, I'm TCP Client."};
         send(sd, request, strlen(request), 0);
         
         // 读取服务器响应包
