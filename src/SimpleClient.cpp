@@ -4,6 +4,8 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <cstring>  // mac不用添加；linux需要添加
+
 
 void SimpleClient::udp(const char* ip_addr, uint16_t port) {
     int sd = socket(PF_INET, SOCK_DGRAM, 0);
