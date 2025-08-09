@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # 查找头文件路径
 find_package(boost REQUIRED)
+message(STATUS "xxx Boost Include Dirs: ${boost_LIBRARES}")
+
 
 # 引入头文件
 include_directories(include)

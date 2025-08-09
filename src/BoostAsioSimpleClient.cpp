@@ -10,6 +10,7 @@ void BoostAsioSimpleClient::tcp(const char* ip_addr, uint16_t port) {
     try {
         boost::asio::io_context io;
         tcp::resolver resolver(io);
+        // endpoint: 端点，连接地址
         tcp::resolver::results_type endpoints = resolver.resolve(ip_addr, std::to_string(port).c_str());
 
         tcp::socket socket(io);
